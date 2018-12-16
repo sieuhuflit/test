@@ -47,7 +47,7 @@
     "test:cov": "react-scripts test --coverage",
     "test:debug": "react-scripts --inspect-brk test --runInBand",
     "eject": "react-scripts eject",
-    "now-build": "react-scripts build && mv build dist"
+    "now-build": "react-scripts build && mv build dist && now alias"
   },
   "bugs": {
     "url": "https://github.com/coreui/coreui-free-react-admin-template/issues"
