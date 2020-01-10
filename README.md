@@ -14,3 +14,4 @@ feature 4
 feature 6
 
 - Commit 1
+- Commit 2
