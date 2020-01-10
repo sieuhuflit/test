@@ -9,3 +9,4 @@ feature 2
 feature 4
 
 - commit 1
+- commit 2
