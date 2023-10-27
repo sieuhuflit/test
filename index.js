@@ -1,6 +1,7 @@
 // index.js
 const express = require('express')
 const app = express()
+require('dotenv').config()
 app.use(express.json());
 const PORT = 4000
 
@@ -46,6 +47,36 @@ app.get('/generate-token', (req, res) => {
   res.status(200).json({ token: jwt });
 })
 
+app.get('/participants', (req, res) => {
+  const accountSid = process.env.ACCOUNT_SID;
+  const authToken = process.env.AUTH_TOKEN;
+  const client = require('twilio')(accountSid, authToken);
+  const room = req.query.room;
+
+  client.video.v1.rooms(room)
+      .participants
+      .list({status: 'connected', limit: 20})
+      .then(participants => {
+        console.log(participants)
+        res.status(200).json({ participants: participants });
+      });
+})
+
+app.get('/rooms', (req, res) => {
+  const accountSid = process.env.ACCOUNT_SID;
+  const authToken = process.env.AUTH_TOKEN;
+  const client = require('twilio')(accountSid, authToken);
+  const room = req.query.room;
+  client.video.v1.rooms(room)
+    .fetch()
+    .then(room => {
+      console.log(room)
+      res.status(200).json({ room: room });
+    })
+    .catch((error) => {
+      res.status(400).json({ error: error })
+    })
+})
 
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
