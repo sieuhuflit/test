@@ -59,7 +59,10 @@ app.get('/participants', (req, res) => {
       .then(participants => {
         console.log(participants)
         res.status(200).json({ participants: participants });
-      });
+      })
+      .catch((error) => {
+        res.status(400).json({ error: error })
+      })
 })
 
 app.get('/rooms', (req, res) => {
